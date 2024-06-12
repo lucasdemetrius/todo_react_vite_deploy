@@ -11,13 +11,10 @@ const TodoForm = ({ addTodo }) => {
         
         if (!value || !category) return;
 
-        //Adicionando tarefa
         addTodo(value, category);
 
-        //Limpando os campos
         setValue("");
-        setCategory("");
-        
+        setCategory("");        
     }
 
   return (

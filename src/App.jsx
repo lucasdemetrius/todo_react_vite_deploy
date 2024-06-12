@@ -9,23 +9,16 @@ import Filter from './components/Filter';
 
 function App() {
 
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "Criar funcionalidade X no sistema",
-      category: "Trabalho",
-      isCompleted: false,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
 
   const addTodo = (text, category) => {
 
     const newTodos = [...todos, {
-      id: Math.floor(Math.random() * 10000),
-      text,
-      category,
-      isCompleted: false,
-    },
+        id: Math.floor(Math.random() * 10000),
+        text,
+        category,
+        isCompleted: false,
+      },
     ];
 
     setTodos(newTodos);
@@ -62,18 +55,18 @@ function App() {
       <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
       <div className="todo-list">
         {todos
-          .filter((todo) => 
-            filter === "All" 
-              ? true 
-              : filter === "Completed" 
-              ? todo.isCompleted 
-              : !todo.isCompleted
+          .filter((todo) =>
+            filter === "All"
+              ? true
+              : filter === "Completed"
+                ? todo.isCompleted
+                : !todo.isCompleted
           )
           .filter((todo) =>
             todo.text.toLowerCase().includes(search.toLowerCase()))
-          .sort((a, b) => 
-            sort === "Asc" 
-              ? a.text.localeCompare(b.text) 
+          .sort((a, b) =>
+            sort === "Asc"
+              ? a.text.localeCompare(b.text)
               : b.text.localeCompare(a.text)
           )
           .map((todo) => (
