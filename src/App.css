@@ -97,3 +97,21 @@ input, select {
 .filter-options div {
   flex: 1 1 0;
 }
+
+.head-app {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.plus-icon {
+  font-size: 2em;
+  color: #007BFF;
+  transition: all 0.3s ease;
+}
+
+.plus-icon:hover {
+  font-size: 2.1em;
+  color: #0056b3; 
+  cursor: pointer;
+}
