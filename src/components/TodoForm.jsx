@@ -1,10 +1,21 @@
 import { useState } from 'react'
 
 // eslint-disable-next-line react/prop-types
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ todos, setTodos, notifySuccess }) => {
 
   const [value, setValue] = useState("");
   const [category, setCategory] = useState("");
+
+  const addTodo = (text, category) => {
+    const newTodos = [...todos, {
+      id: Math.floor(Math.random() * 10000),
+      text,
+      category,
+      isCompleted: false,
+    }];
+    setTodos(newTodos);
+    notifySuccess("Cadastro realizado com sucesso");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

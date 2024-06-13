@@ -14,7 +14,7 @@ const Todo = ({ todo, todos, setTodos, notifySuccess }) => {
         todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
       );
       setTodos(newTodos);
-      notifySuccess("Tarefa completada");
+      notifySuccess("Operação realizada com sucesso");
     };
   
     return (

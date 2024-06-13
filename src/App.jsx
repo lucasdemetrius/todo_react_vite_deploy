@@ -27,18 +27,7 @@ function App() {
 
   function notifySuccess(msg) {
     toast.success(msg);
-  }
-
-  const addTodo = (text, category) => {
-    const newTodos = [...todos, {
-      id: Math.floor(Math.random() * 10000),
-      text,
-      category,
-      isCompleted: false,
-    }];
-    setTodos(newTodos);
-    notifySuccess("Cadastro realizado com sucesso");
-  }
+  }  
 
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
@@ -90,7 +79,7 @@ function App() {
           <Modal.Title>Criar Tarefa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TodoForm addTodo={addTodo} />
+          <TodoForm todos={todos} setTodos={setTodos} notifySuccess={notifySuccess} />
         </Modal.Body>
       </Modal>
 
