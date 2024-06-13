@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -9,12 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 
-import Todo from "./components/Todo"
+import Todo from "./components/Todo";
 import TodoForm from './components/TodoForm';
 import Search from './components/Search';
 
 function App() {
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -29,46 +27,20 @@ function App() {
 
   function notifySuccess(msg) {
     toast.success(msg);
-}
+  }
 
   const addTodo = (text, category) => {
-
     const newTodos = [...todos, {
       id: Math.floor(Math.random() * 10000),
       text,
       category,
       isCompleted: false,
-    },
-    ];
-
+    }];
     setTodos(newTodos);
     notifySuccess("Cadastro realizado com sucesso");
   }
 
-  const removeTodo = (id) => {
-
-    const newTodos = [...todos]
-    const filteredTodos = newTodos.filter(todo =>
-      todo.id !== id ? todo : null
-    );
-
-    setTodos(filteredTodos);
-    notifySuccess("Remoção realizada com sucesso");
-  }
-
-  const completeTodo = (id) => {
-
-    const newTodos = [...todos]
-    newTodos.map((todo) =>
-      todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
-    );
-
-    setTodos(newTodos);
-    notifySuccess("Tarefa completada");
-  }
-
   const [search, setSearch] = useState("");
-
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc");
 
@@ -104,7 +76,13 @@ function App() {
               : b.text.localeCompare(a.text)
           )
           .map((todo) => (
-            <Todo key={todo.id} todo={todo} removeTodo={removeTodo} completeTodo={completeTodo} />
+            <Todo 
+              key={todo.id} 
+              todo={todo} 
+              todos={todos} 
+              setTodos={setTodos} 
+              notifySuccess={notifySuccess} 
+            />
           ))}
       </div>
 
@@ -117,20 +95,9 @@ function App() {
         </Modal.Body>
       </Modal>
 
-
-
-
-
-
-
-
-
-
-
-
       <ToastContainer />
     </div>
   );
 }
 
-export default App
+export default App;
