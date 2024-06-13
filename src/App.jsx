@@ -1,16 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 
 import Todo from "./components/Todo"
 import TodoForm from './components/TodoForm';
 import Search from './components/Search';
-import Filter from './components/Filter';
 
 function App() {
 
@@ -26,6 +27,10 @@ function App() {
 
   const [todos, setTodos] = useState([]);
 
+  function notifySuccess(msg) {
+    toast.success(msg);
+}
+
   const addTodo = (text, category) => {
 
     const newTodos = [...todos, {
@@ -37,6 +42,7 @@ function App() {
     ];
 
     setTodos(newTodos);
+    notifySuccess("Cadastro realizado com sucesso");
   }
 
   const removeTodo = (id) => {
@@ -45,8 +51,9 @@ function App() {
     const filteredTodos = newTodos.filter(todo =>
       todo.id !== id ? todo : null
     );
-    setTodos(filteredTodos);
 
+    setTodos(filteredTodos);
+    notifySuccess("Remoção realizada com sucesso");
   }
 
   const completeTodo = (id) => {
@@ -55,7 +62,9 @@ function App() {
     newTodos.map((todo) =>
       todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
     );
+
     setTodos(newTodos);
+    notifySuccess("Tarefa completada");
   }
 
   const [search, setSearch] = useState("");
@@ -74,8 +83,10 @@ function App() {
         </div>
       </div>
 
-      <Search search={search} setSearch={setSearch} />
-      <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
+      <h6>Filtrar</h6>
+      <Search search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} setSort={setSort} />
+
+      <h6>Tarefas</h6>
       <div className="todo-list">
         {todos
           .filter((todo) =>
@@ -104,12 +115,20 @@ function App() {
         <Modal.Body>
           <TodoForm addTodo={addTodo} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            Fechar
-          </Button>
-        </Modal.Footer>
       </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+      <ToastContainer />
     </div>
   );
 }

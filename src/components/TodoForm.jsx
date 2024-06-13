@@ -3,36 +3,48 @@ import { useState } from 'react'
 // eslint-disable-next-line react/prop-types
 const TodoForm = ({ addTodo }) => {
 
-    const [value, setValue] = useState("");
-    const [category, setCategory] = useState("");
+  const [value, setValue] = useState("");
+  const [category, setCategory] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        if (!value || !category) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        addTodo(value, category);
+    if (!value || !category) return;
 
-        setValue("");
-        setCategory("");        
-    }
+    addTodo(value, category);
+
+    setValue("");
+    setCategory("");
+  }
 
   return (
     <div className='todo-form'>
       <form onSubmit={handleSubmit}>
-        <input  
-          type="text" 
-          placeholder="Digite o título"
-          value={value}
-          onChange={(e) => setValue(e.target.value)} 
-        />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <div className="mt-2">
+          <label htmlFor="todoTitle">Tarefa:</label>
+          <input
+            type="text"
+            placeholder="Digite o título"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            className="form-control rounded shadow-sm border-1"
+            required 
+          />
+        </div>
+
+        <div className="mt-2 mb-3">
+          <label htmlFor="todoCategory">Categoria:</label>
+          <select value={category} className="form-select rounded shadow-sm border-1" required onChange={(e) => setCategory(e.target.value)}>
             <option value="">Selecione uma categoria</option>
             <option value="Trabalho">Trabalho</option>
             <option value="Pessoal">Pessoal</option>
             <option value="Estudos">Estudos</option>
-        </select>
-        <button type='submit'> Criar tarefa </button>
+          </select>
+        </div>
+
+        <div className="d-flex justify-content-end">
+          <button type="submit" className="btn btn-primary me-2">Salvar</button>
+        </div>
       </form>
     </div>
   )
