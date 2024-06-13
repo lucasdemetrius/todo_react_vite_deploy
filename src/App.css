@@ -115,3 +115,16 @@ input, select {
   color: #0056b3; 
   cursor: pointer;
 }
+
+.search {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 35%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+}

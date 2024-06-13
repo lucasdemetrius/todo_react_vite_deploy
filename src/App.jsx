@@ -55,7 +55,6 @@ function App() {
         </div>
       </div>
 
-      <h6>Filtrar</h6>
       <Search search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} setSort={setSort} />
 
       <h6>Tarefas</h6>
