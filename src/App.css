@@ -13,23 +13,6 @@ body {
   border-radius: 10px;
 }
 
-h1 {
-  text-align: center;
-  color: #007BFF;
-}
-
-h2 {
-  margin-bottom: 10px;
-}
-
-p {
-  margin: 10px 0;
-}
-
-input {
-  box-sizing: border-box;
-}
-
 button {
   background-color: #333974;
   color: #fff;
@@ -70,32 +53,12 @@ button:hover {
   background-color: #D9534f;
 }
 
-.todo-form {
-  padding-bottom: 1.5rem;
-}
-
 input, select {
   padding: 5px;
   margin-bottom: 10px;
   border: 1px solid #DDD;
   border-radius: 3px;
   width: 100%;
-}
-
-.filter, 
-.search {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-}
-
-.filter-options {
-  display: flex;
-  justify-content: space-between;
-  gap: 3rem;
-}
-
-.filter-options div {
-  flex: 1 1 0;
 }
 
 .head-app {
@@ -105,7 +68,7 @@ input, select {
 }
 
 .plus-icon {
-  font-size: 2em;
+  font-size: 24px;
   color: #007BFF;
   transition: all 0.3s ease;
 }
@@ -122,9 +85,25 @@ input, select {
 
 .search-icon {
   position: absolute;
-  top: 35%;
+  top: 50%;
   right: 10px;
   transform: translateY(-50%);
   color: #888;
   pointer-events: none;
+}
+
+.no-tasks-message {
+  font-size: smaller;
+  color: #888;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+.nome-tela {
+  font-size: larger;
+  color: #666464;
+  text-align: left;
+  display: block;
+  margin-top: 10px;
 }

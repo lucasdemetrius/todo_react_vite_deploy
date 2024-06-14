@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
-import "./App.css";
-
-import Todo from "./components/Todo";
+import Todo from './components/Todo';
 import TodoForm from './components/TodoForm';
 import Search from './components/Search';
 
@@ -27,52 +26,74 @@ function App() {
 
   function notifySuccess(msg) {
     toast.success(msg);
-  }  
+  }
 
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("All");
-  const [sort, setSort] = useState("Asc");
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState('All');
+  const [sort, setSort] = useState('Asc');
+
+  const filteredTodos = todos
+    .filter((todo) =>
+      filter === 'All'
+        ? true
+        : filter === 'Completed'
+          ? todo.isCompleted
+          : !todo.isCompleted
+    )
+    .filter((todo) =>
+      todo.text.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) =>
+      sort === 'Asc' ? a.text.localeCompare(b.text) : b.text.localeCompare(a.text)
+    );
+
+  const totalTodos = todos.length;
 
   return (
     <div className="app">
       <div className="head-app">
         <div>
           <h4>Lista de tarefas</h4>
+        </div>        
+      </div>
+
+      <Search
+        className="mt-3"
+        search={search}
+        setSearch={setSearch}
+        filter={filter}
+        setFilter={setFilter}
+        setSort={setSort}
+      />
+      <h6 className="mt-2">Tarefas ({totalTodos})</h6>
+      <div className="todo-list">
+        {filteredTodos.length > 0 ? (
+          filteredTodos.map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              todos={todos}
+              setTodos={setTodos}
+              notifySuccess={notifySuccess}
+            />
+          ))
+        ) : (
+          <span className="no-tasks-message">Nenhuma tarefa encontrada</span>
+        )}
+      </div>
+
+      <div className="head-app">
+        <div>
+          
         </div>
         <div>
-          <FontAwesomeIcon icon={faPlus} className="plus-icon" onClick={openModal} />
+          <Fab color="primary" onClick={openModal}>
+            <AddIcon />
+          </Fab>
         </div>
       </div>
 
-      <Search search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} setSort={setSort} />
 
-      <h6>Tarefas</h6>
-      <div className="todo-list">
-        {todos
-          .filter((todo) =>
-            filter === "All"
-              ? true
-              : filter === "Completed"
-                ? todo.isCompleted
-                : !todo.isCompleted
-          )
-          .filter((todo) =>
-            todo.text.toLowerCase().includes(search.toLowerCase()))
-          .sort((a, b) =>
-            sort === "Asc"
-              ? a.text.localeCompare(b.text)
-              : b.text.localeCompare(a.text)
-          )
-          .map((todo) => (
-            <Todo 
-              key={todo.id} 
-              todo={todo} 
-              todos={todos} 
-              setTodos={setTodos} 
-              notifySuccess={notifySuccess} 
-            />
-          ))}
-      </div>
 
       <Modal show={modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>
